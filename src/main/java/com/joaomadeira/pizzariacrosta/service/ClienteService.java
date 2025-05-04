@@ -10,6 +10,7 @@ import com.joaomadeira.pizzariacrosta.repository.PessoaRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class ClienteService {
     private final PessoaRepository pessoaRepository;
     private final ClienteMapper clienteMapper;
 
+    @Transactional
     public ClienteResponseDTO cadastrarCliente(@Valid ClienteRequestDTO clienteDTO) {
         if (pessoaRepository.existsByCpf(clienteDTO.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado");
@@ -37,4 +39,14 @@ public class ClienteService {
         return clienteMapper.toResponseDTO(clienteSalvo);
     }
 
+    public String alterarStatus(Integer id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+
+        cliente.setStatus(!cliente.isStatus());
+        clienteRepository.save(cliente);
+
+        return cliente.isStatus() ? "Cliente ativado com sucesso" : "Cliente inativado com sucesso";
+    }
+    
 }
