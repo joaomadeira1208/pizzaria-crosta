@@ -36,4 +36,10 @@ public class ClienteController {
         return ResponseEntity.ok(response);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> atualizarDadosCliente(@RequestBody ClienteRequestDTO clienteDTO, @PathVariable Integer id) {
+        ClienteResponseDTO response = clienteService.atualizarDadosCliente(clienteDTO, id);
+        return ResponseEntity.ok(response);
+    }
+
 }

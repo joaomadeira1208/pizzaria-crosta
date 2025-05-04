@@ -5,6 +5,7 @@ import com.joaomadeira.pizzariacrosta.mapper.PedidoMapper;
 import com.joaomadeira.pizzariacrosta.model.*;
 import com.joaomadeira.pizzariacrosta.model.enums.StatusEntrega;
 import com.joaomadeira.pizzariacrosta.repository.*;
+import com.joaomadeira.pizzariacrosta.repository.custom.PedidoRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
+    private final PedidoRepositoryCustom pedidoRepositoryCustom;
     private final ClienteRepository clienteRepository;
     private final FuncionarioRepository funcionarioRepository;
     private final PizzaRepository pizzaRepository;
@@ -55,7 +57,7 @@ public class PedidoService {
         pedidoDTO.setDataHora(LocalDateTime.now());
 
         Pedido pedido = pedidoMapper.toEntity(pedidoDTO, cliente, funcionario);
-        calculoValorTotal(pedido, pizzas, bebidas, pedidoDTO);
+        calcularValorTotal(pedido, pizzas, bebidas, pedidoDTO);
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
         List<PizzaResponseDTO> pizzaResponseDTOs = pedidoPizzaService.salvarPedidoPizzas(pedidoSalvo, pedidoDTO.getPizzas(), pizzas);
         List<BebidaResponseDTO> bebidaResponseDTOs = pedidoBebidaService.salvarPedidoBebidas(pedidoSalvo, pedidoDTO.getBebidas(), bebidas);
@@ -63,7 +65,7 @@ public class PedidoService {
         return pedidoMapper.toDTO(pedidoSalvo, pizzaResponseDTOs, bebidaResponseDTOs);
     }
 
-    private void calculoValorTotal(Pedido pedido, List<Pizza> pizzas, List<Bebida> bebidas, PedidoRequestDTO pedidoRequestDTO) {
+    private void calcularValorTotal(Pedido pedido, List<Pizza> pizzas, List<Bebida> bebidas, PedidoRequestDTO pedidoRequestDTO) {
         BigDecimal valorTotal = BigDecimal.ZERO;
         Map<Integer, Pizza> pizzaMap = pizzas.stream()
                 .collect(Collectors.toMap(Pizza::getId, p -> p));
@@ -88,4 +90,13 @@ public class PedidoService {
         pedido.setValorTotal(valorTotal);
     }
 
+    public List<PedidoResponseDTO> buscarPedidosPorCliente(Integer id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+
+        List<Pedido> pedidos = pedidoRepository.findAllByCliente(cliente);
+
+
+        return pedidoRepositoryCustom.buscarPizzaBebidaPorPedido(pedidos);
+    }
 }

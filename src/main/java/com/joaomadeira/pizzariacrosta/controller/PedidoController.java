@@ -5,10 +5,9 @@ import com.joaomadeira.pizzariacrosta.dto.PedidoResponseDTO;
 import com.joaomadeira.pizzariacrosta.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -22,5 +21,12 @@ public class PedidoController {
         PedidoResponseDTO response = pedidoService.cadastrarPedido(pedidoDTO);
         return ResponseEntity.status(201).body(response);
     }
+
+    @GetMapping("/por-cliente/{id}")
+    public ResponseEntity<List<PedidoResponseDTO>> buscarPedidosPorCliente(@PathVariable Integer id) {
+        List<PedidoResponseDTO> response = pedidoService.buscarPedidosPorCliente(id);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
