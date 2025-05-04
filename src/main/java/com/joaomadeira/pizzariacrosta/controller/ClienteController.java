@@ -30,4 +30,10 @@ public class ClienteController {
         return ResponseEntity.ok(new BaseResponse(HttpStatus.OK.value(),response));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponseDTO> buscarClientePorId(@PathVariable Integer id) {
+        ClienteResponseDTO response = clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(response);
+    }
+
 }

@@ -3,6 +3,8 @@ package com.joaomadeira.pizzariacrosta.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "bebidas")
 @Getter
@@ -24,5 +26,8 @@ public class Bebida {
 
     @Column(nullable = false)
     private Boolean status;
+
+    @Column(nullable = false, precision = 6, scale = 2)
+    private BigDecimal preco;
 
 }

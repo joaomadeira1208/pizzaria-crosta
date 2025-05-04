@@ -47,4 +47,7 @@ public class FuncionarioRequestDTO {
     @Min(0)
     private Integer turno;
 
+    @NotNull
+    private Integer idFuncionarioExecutando;
+
 }

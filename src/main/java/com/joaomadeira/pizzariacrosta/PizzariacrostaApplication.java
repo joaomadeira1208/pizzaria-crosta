@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 @SpringBootApplication
 @Log4j2
 public class PizzariacrostaApplication {
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
         SpringApplication.run(PizzariacrostaApplication.class, args);
     }
 

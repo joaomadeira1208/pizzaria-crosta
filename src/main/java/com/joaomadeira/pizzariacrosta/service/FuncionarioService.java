@@ -22,7 +22,10 @@ public class FuncionarioService {
 
     @Transactional
     public FuncionarioResponseDTO cadastrarFuncionario(@Valid FuncionarioRequestDTO funcionarioDTO) {
-        if(funcionarioDTO.getCargo() != null && "Gerente".equals(funcionarioDTO.getCargo())) {
+        Funcionario funcionarioCadastrando = funcionarioRepository.findById(funcionarioDTO.getIdFuncionarioExecutando())
+                .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
+
+        if(funcionarioCadastrando.getCargo() != null && "GERENTE".equals(funcionarioCadastrando.getCargo())) {
             if (pessoaRepository.existsByCpf(funcionarioDTO.getCpf())) {
                 throw new IllegalArgumentException("CPF já cadastrado");
             }

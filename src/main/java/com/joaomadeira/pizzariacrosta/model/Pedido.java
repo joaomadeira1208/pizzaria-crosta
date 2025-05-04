@@ -1,5 +1,6 @@
 package com.joaomadeira.pizzariacrosta.model;
 
+import com.joaomadeira.pizzariacrosta.model.enums.StatusEntrega;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,8 +31,9 @@ public class Pedido {
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_entrega", nullable = false, length = 50)
-    private String statusEntrega;
+    private StatusEntrega statusEntrega;
 
     @Column(name = "valor_total", nullable = false, precision = 8, scale = 2)
     private BigDecimal valorTotal;

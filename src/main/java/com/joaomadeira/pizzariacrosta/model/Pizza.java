@@ -1,6 +1,5 @@
 package com.joaomadeira.pizzariacrosta.model;
 
-import com.joaomadeira.pizzariacrosta.model.enums.TamanhoPizza;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,10 +20,6 @@ public class Pizza {
 
     @Column(length = 100, nullable = false)
     private String sabor;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private TamanhoPizza tamanho;
 
     @Column(nullable = false, precision = 6, scale = 2)
     private BigDecimal preco;

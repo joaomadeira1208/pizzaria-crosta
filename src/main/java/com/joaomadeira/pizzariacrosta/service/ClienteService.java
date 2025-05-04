@@ -48,5 +48,12 @@ public class ClienteService {
 
         return cliente.isStatus() ? "Cliente ativado com sucesso" : "Cliente inativado com sucesso";
     }
-    
+
+    public ClienteResponseDTO buscarClientePorId(Integer id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+
+        return clienteMapper.toResponseDTO(cliente);
+    }
+
 }

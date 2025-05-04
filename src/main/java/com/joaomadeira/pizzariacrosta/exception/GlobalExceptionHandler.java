@@ -1,6 +1,5 @@
 package com.joaomadeira.pizzariacrosta.exception;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.joaomadeira.pizzariacrosta.dto.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

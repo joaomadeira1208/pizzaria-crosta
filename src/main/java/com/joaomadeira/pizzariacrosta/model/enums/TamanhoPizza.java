@@ -1,20 +1,15 @@
 package com.joaomadeira.pizzariacrosta.model.enums;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Getter
 public enum TamanhoPizza {
+    PEQUENA(0.8),
+    MEDIA(1.0),
+    GRANDE(1.3),
+    GIGANTE(1.6);
 
-    PEQUENA("pequena"),
-    MEDIA("media"),
-    GRANDE("grande"),
-    GIGANTE("gigante");
-
-    private final String valor;
-
-    @Override
-    public String toString() {
-        return valor;
-    }
-
+    private final double multiplicador;
 }

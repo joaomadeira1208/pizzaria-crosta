@@ -36,7 +36,7 @@ public class FuncionarioMapper {
                 .idade(funcionario.getPessoa().getIdade())
                 .telefone(funcionario.getPessoa().getTelefone())
                 .email(funcionario.getPessoa().getEmail())
-                .cargo(funcionario.getCargo())
+                .cargo(funcionario.getCargo().toUpperCase())
                 .turno(funcionario.getTurno())
                 .build();
     }
