@@ -99,4 +99,13 @@ public class PedidoService {
 
         return pedidoRepositoryCustom.buscarPizzaBebidaPorPedido(pedidos);
     }
+
+    public BaseResponse recuperarStatus(Integer idPedido) {
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
+        return BaseResponse.builder()
+                .response(pedido.getStatusEntrega().toString())
+                .status(200)
+                .build();
+    }
 }

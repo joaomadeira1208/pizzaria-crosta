@@ -1,5 +1,6 @@
 package com.joaomadeira.pizzariacrosta.controller;
 
+import com.joaomadeira.pizzariacrosta.dto.BaseResponse;
 import com.joaomadeira.pizzariacrosta.dto.PedidoRequestDTO;
 import com.joaomadeira.pizzariacrosta.dto.PedidoResponseDTO;
 import com.joaomadeira.pizzariacrosta.service.PedidoService;
@@ -28,5 +29,10 @@ public class PedidoController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/recuperar-status/{idPedido}")
+    public ResponseEntity<BaseResponse> recuperarStatus(@PathVariable Integer idPedido) {
+        BaseResponse response = pedidoService.recuperarStatus(idPedido);
+        return ResponseEntity.ok(response);
+    }
 
 }

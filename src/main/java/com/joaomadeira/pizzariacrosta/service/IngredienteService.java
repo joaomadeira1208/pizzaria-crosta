@@ -36,7 +36,7 @@ public class IngredienteService {
         ingredienteRepository.save(ingrediente);
 
         return BaseResponse.builder()
-                .mensagem("Ingrediente cadastrado com sucesso")
+                .response("Ingrediente cadastrado com sucesso")
                 .status(201)
                 .build();
     }
