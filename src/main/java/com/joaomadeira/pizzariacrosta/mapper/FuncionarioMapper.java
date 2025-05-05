@@ -38,6 +38,7 @@ public class FuncionarioMapper {
                 .email(funcionario.getPessoa().getEmail())
                 .cargo(funcionario.getCargo().toUpperCase())
                 .turno(funcionario.getTurno())
+                .status(funcionario.getStatus())
                 .build();
     }
 }

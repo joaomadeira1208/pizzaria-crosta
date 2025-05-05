@@ -50,4 +50,6 @@ public class FuncionarioRequestDTO {
     @NotNull
     private Integer idFuncionarioExecutando;
 
+    private Boolean status;
+
 }

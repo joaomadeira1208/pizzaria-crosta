@@ -30,4 +30,12 @@ public class FuncionarioController {
         FuncionarioResponseDTO response = funcionarioService.atualizarFuncionario(idFuncionario, funcionarioDTO);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/alterarStatus/{idGerente}")
+    public ResponseEntity<Boolean> inativarFuncionario(
+            @PathVariable Integer idGerente, @RequestBody FuncionarioAlterarStatusDTO funcionarioDTO) {
+
+        Boolean response = funcionarioService.alterarStatusFuncionario(idGerente, funcionarioDTO);
+        return ResponseEntity.ok(response);
+    }
 }

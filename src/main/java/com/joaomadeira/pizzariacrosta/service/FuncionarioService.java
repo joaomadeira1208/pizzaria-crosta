@@ -1,6 +1,6 @@
 package com.joaomadeira.pizzariacrosta.service;
 
-import com.joaomadeira.pizzariacrosta.dto.ClienteRequestDTO;
+import com.joaomadeira.pizzariacrosta.dto.FuncionarioAlterarStatusDTO;
 import com.joaomadeira.pizzariacrosta.dto.FuncionarioRequestDTO;
 import com.joaomadeira.pizzariacrosta.dto.FuncionarioResponseDTO;
 import com.joaomadeira.pizzariacrosta.mapper.FuncionarioMapper;
@@ -99,6 +99,30 @@ public class FuncionarioService {
         }
         if (funcionarioRequestDTO.getTurno() != null) {
             funcionario.setTurno(funcionarioRequestDTO.getTurno());
+        }
+        if(funcionarioRequestDTO.getStatus() != null){
+            funcionario.setStatus(funcionarioRequestDTO.getStatus());
+        }
+    }
+
+    public Boolean alterarStatusFuncionario(Integer idGerente, FuncionarioAlterarStatusDTO funcionarioDTO) {
+        Funcionario funcionarioAtualizando = funcionarioRepository.findById(idGerente)
+                .orElseThrow(() -> new IllegalArgumentException("Gerente não encontrado"));
+        if(!"GERENTE".equals(funcionarioAtualizando.getCargo())){
+            throw new IllegalArgumentException("Funcionario não tem permissão");
+        }
+
+        Funcionario funcionarioAlvo = funcionarioRepository.findByPessoaCpf(funcionarioDTO.getCpf())
+                .orElseThrow(() -> new IllegalArgumentException("Funcionário com o CPF informado não encontrado"));
+
+        atualizarStatusFuncionario(funcionarioAlvo, funcionarioDTO);
+        funcionarioRepository.save(funcionarioAlvo);
+        return true;
+    }
+
+    private void atualizarStatusFuncionario(Funcionario funcionario, FuncionarioAlterarStatusDTO funcionarioDTO) {
+        if(funcionarioDTO.getStatus() != null){
+            funcionario.setStatus(funcionarioDTO.getStatus());
         }
     }
 }

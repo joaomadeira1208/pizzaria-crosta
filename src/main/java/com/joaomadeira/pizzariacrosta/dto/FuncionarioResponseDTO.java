@@ -41,4 +41,6 @@ public class FuncionarioResponseDTO {
     @Min(0)
     private Integer turno;
 
+    private boolean status;
+
 }

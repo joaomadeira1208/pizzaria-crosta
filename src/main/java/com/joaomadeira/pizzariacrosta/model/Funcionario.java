@@ -28,6 +28,6 @@ public class Funcionario {
     private Integer turno;
 
     @Column(nullable = false)
-    private boolean status;
+    private Boolean status;
 
 }
