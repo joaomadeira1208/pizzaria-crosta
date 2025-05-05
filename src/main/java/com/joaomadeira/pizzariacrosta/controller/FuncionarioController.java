@@ -15,9 +15,17 @@ public class FuncionarioController {
     private final FuncionarioService funcionarioService;
 
     @PostMapping
-    public ResponseEntity<FuncionarioResponseDTO> cadastrarFuncionario(@RequestBody @Valid FuncionarioRequestDTO funcionarioDTO) {
+    public ResponseEntity<FuncionarioResponseDTO> cadastrarFuncionario(
+            @RequestBody @Valid FuncionarioRequestDTO funcionarioDTO) {
         FuncionarioResponseDTO response = funcionarioService.cadastrarFuncionario(funcionarioDTO);
         return ResponseEntity.status(201).body(response);
 
+    }
+
+    @GetMapping("/atualizar/{idFuncionario}")
+    public ResponseEntity<FuncionarioResponseDTO> atualizarFuncionario(
+            @PathVariable Integer idFuncionario, @Valid FuncionarioRequestDTO funcionarioDTO) {
+        FuncionarioResponseDTO response = funcionarioService.atualizarFuncionario(idFuncionario, funcionarioDTO);
+        return ResponseEntity.status(201).body(response);
     }
 }
