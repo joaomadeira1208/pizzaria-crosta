@@ -50,4 +50,17 @@ public class PedidoPizzaService {
                 .toList();
     }
 
+    public List<PizzaResponseDTO> buscarPizzasDoPedido(Integer pedidoId) {
+        List<PedidoPizza> pedidoPizzas = pedidoPizzaRepository.findByPedidoId(pedidoId);
+
+        return pedidoPizzas.stream()
+                .map(pp -> PizzaResponseDTO.builder()
+                        .sabor(pp.getPizza().getSabor())
+                        .tamanho(pp.getTamanho())
+                        .preco(pp.getPizza().getPreco())
+                        .quantidade(pp.getQuantidade())
+                        .build())
+                .toList();
+    }
+
 }

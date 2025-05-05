@@ -108,4 +108,17 @@ public class PedidoService {
                 .status(200)
                 .build();
     }
+
+    public PedidoResponseDTO alterarStatusPedido(Integer idPedido, StatusEntrega statusEntrega) {
+        Pedido pedido = pedidoRepository.findById(idPedido)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
+        pedido.setStatusEntrega(statusEntrega);
+
+        pedidoRepository.save(pedido);
+
+        List<PizzaResponseDTO> pizzas = pedidoPizzaService.buscarPizzasDoPedido(idPedido);
+        List<BebidaResponseDTO> bebidas = pedidoBebidaService.buscarBebidasDoPedido(idPedido);
+
+        return pedidoMapper.toDTO(pedido, pizzas, bebidas);
+    }
 }

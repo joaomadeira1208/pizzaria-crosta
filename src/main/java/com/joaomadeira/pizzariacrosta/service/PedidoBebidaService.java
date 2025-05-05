@@ -2,6 +2,7 @@ package com.joaomadeira.pizzariacrosta.service;
 
 import com.joaomadeira.pizzariacrosta.dto.BebidaResponseDTO;
 import com.joaomadeira.pizzariacrosta.dto.PedidoBebidasDTO;
+import com.joaomadeira.pizzariacrosta.dto.PizzaResponseDTO;
 import com.joaomadeira.pizzariacrosta.model.*;
 import com.joaomadeira.pizzariacrosta.model.id.PedidoBebidaId;
 import com.joaomadeira.pizzariacrosta.repository.PedidoBebidaRepository;
@@ -43,6 +44,18 @@ public class PedidoBebidaService {
                         .quantidade(pb.getQuantidade())
                         .build()
                 )
+                .toList();
+    }
+
+    public List<BebidaResponseDTO> buscarBebidasDoPedido(Integer pedidoId) {
+        List<PedidoBebida> pedidoBebidas = pedidoBebidaRepository.findByPedidoId(pedidoId);
+
+        return pedidoBebidas.stream()
+                .map(pb -> BebidaResponseDTO.builder()
+                        .nome(pb.getBebida().getNome())
+                        .preco(pb.getBebida().getPreco())
+                        .quantidade(pb.getQuantidade())
+                        .build())
                 .toList();
     }
 

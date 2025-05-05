@@ -1,5 +1,6 @@
 package com.joaomadeira.pizzariacrosta.controller;
 
+import com.joaomadeira.pizzariacrosta.dto.AlterarStatusPedidoDTO;
 import com.joaomadeira.pizzariacrosta.dto.BaseResponse;
 import com.joaomadeira.pizzariacrosta.dto.PedidoRequestDTO;
 import com.joaomadeira.pizzariacrosta.dto.PedidoResponseDTO;
@@ -35,4 +36,9 @@ public class PedidoController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/alterar-status/{idPedido}")
+    public ResponseEntity<PedidoResponseDTO> alterarStatusPedido(@PathVariable Integer idPedido, @RequestBody AlterarStatusPedidoDTO pedidoDTO) {
+        PedidoResponseDTO response = pedidoService.alterarStatusPedido(idPedido, pedidoDTO.getStatus());
+        return ResponseEntity.status(200).body(response);
+    }
 }
