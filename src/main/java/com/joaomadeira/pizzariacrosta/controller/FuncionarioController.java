@@ -22,10 +22,12 @@ public class FuncionarioController {
 
     }
 
-    @GetMapping("/atualizar/{idFuncionario}")
+    @PutMapping("/atualizar/{idFuncionario}")
     public ResponseEntity<FuncionarioResponseDTO> atualizarFuncionario(
-            @PathVariable Integer idFuncionario, @Valid FuncionarioRequestDTO funcionarioDTO) {
+            @PathVariable Integer idFuncionario,
+            @RequestBody FuncionarioRequestDTO funcionarioDTO) {
+
         FuncionarioResponseDTO response = funcionarioService.atualizarFuncionario(idFuncionario, funcionarioDTO);
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.ok(response);
     }
 }
