@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
@@ -15,15 +16,11 @@ import java.math.BigDecimal;
 @Builder
 public class PizzaResponseDTO {
 
-    @NotNull
+
     private String sabor;
-
-
-
-    @NotNull
     private BigDecimal preco;
-
     private TamanhoPizza tamanho;
     private Integer quantidade;
+    private List<String> ingredientes;
 
 }
