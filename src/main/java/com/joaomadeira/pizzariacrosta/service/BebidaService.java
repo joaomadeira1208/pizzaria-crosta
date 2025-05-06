@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +38,13 @@ public class BebidaService {
         Bebida bebida = bebidaMapper.toEntity(bebidaRequestDTO);
         bebidaRepository.save(bebida);
         return bebidaMapper.toResponseDTO(bebida);
+    }
+
+    public List<BebidaResponseDTO> consultarBebidas() {
+        List<Bebida> bebidas = bebidaRepository.findAll();
+        return bebidas.stream()
+                .map(bebidaMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
 }
