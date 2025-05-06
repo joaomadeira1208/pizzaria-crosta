@@ -7,10 +7,12 @@ import com.joaomadeira.pizzariacrosta.model.Funcionario;
 import com.joaomadeira.pizzariacrosta.model.Pizza;
 import com.joaomadeira.pizzariacrosta.repository.FuncionarioRepository;
 import com.joaomadeira.pizzariacrosta.repository.PizzaRepository;
+import com.joaomadeira.pizzariacrosta.repository.custom.PizzaRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +23,7 @@ public class PizzaService {
     private final PizzaMapper pizzaMapper;
     private final PizzaIngredienteService pizzaIngredienteService;
     private final FuncionarioRepository funcionarioRepository;
+    private final PizzaRepositoryCustom pizzaRepositoryCustom;
 
     @Transactional
     public PizzaResponseDTO cadastrarPizza(PizzaRequestDTO pizzaRequestDTO) {
@@ -40,4 +43,7 @@ public class PizzaService {
         return pizzaMapper.toResponseDTO(pizza);
     }
 
+    public List<PizzaResponseDTO> listarPizzas() {
+        return pizzaRepositoryCustom.findAllByStatus();
+    }
 }
