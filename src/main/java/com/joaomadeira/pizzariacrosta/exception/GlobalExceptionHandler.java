@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
         BaseResponse erro = new BaseResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
+
+    @ExceptionHandler(CriacaoPagamentoException.class)
+    public ResponseEntity<BaseResponse> handleRunTimeException(CriacaoPagamentoException ex) {
+        BaseResponse erro = new BaseResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
 }
