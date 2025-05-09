@@ -35,8 +35,6 @@ public class PedidoService {
         Cliente cliente = clienteRepository.findById(pedidoDTO.getClienteId())
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
-        Funcionario funcionario = funcionarioRepository.findById(pedidoDTO.getFuncionarioAceitouId())
-                .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
 
         List<Integer> pizzasIds = pedidoDTO.getPizzas().stream()
                 .map(PedidoPizzasDTO::getPizzaId)
@@ -56,7 +54,7 @@ public class PedidoService {
         pedidoDTO.setStatus(StatusEntrega.PENDENTE);
         pedidoDTO.setDataHora(LocalDateTime.now());
 
-        Pedido pedido = pedidoMapper.toEntity(pedidoDTO, cliente, funcionario);
+        Pedido pedido = pedidoMapper.toEntity(pedidoDTO, cliente);
         calcularValorTotal(pedido, pizzas, bebidas, pedidoDTO);
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
         List<PizzaResponseDTO> pizzaResponseDTOs = pedidoPizzaService.salvarPedidoPizzas(pedidoSalvo, pedidoDTO.getPizzas(), pizzas);
@@ -87,7 +85,7 @@ public class PedidoService {
             valorTotal = valorTotal.add(preco.multiply(BigDecimal.valueOf(dto.getQuantidade())));
         }
 
-        pedido.setValorTotal(valorTotal);
+        pedido.setValorTotal(valorTotal.add(pedidoRequestDTO.getFrete()));
     }
 
     public List<PedidoResponseDTO> buscarPedidosPorCliente(Integer id) {
@@ -120,5 +118,10 @@ public class PedidoService {
         List<BebidaResponseDTO> bebidas = pedidoBebidaService.buscarBebidasDoPedido(idPedido);
 
         return pedidoMapper.toDTO(pedido, pizzas, bebidas);
+    }
+
+    public List<PedidoResponseDTO> buscarTodosPedidos() {
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        return pedidoRepositoryCustom.buscarPizzaBebidaPorPedido(pedidos);
     }
 }

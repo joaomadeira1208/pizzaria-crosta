@@ -20,8 +20,10 @@ public class BebidaMapper {
 
     public BebidaResponseDTO toResponseDTO(Bebida bebida) {
         return BebidaResponseDTO.builder()
+                .id(bebida.getId())
                 .nome(bebida.getNome())
                 .preco(bebida.getPreco())
+                .imageUrl(bebida.getUrlImagem())
                 .build();
     }
 }

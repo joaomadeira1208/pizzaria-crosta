@@ -13,5 +13,6 @@ public class LoginResponseDTO {
 
     private Boolean sucesso;
     private String tipoUsuario;
+    private Integer id;
 
 }

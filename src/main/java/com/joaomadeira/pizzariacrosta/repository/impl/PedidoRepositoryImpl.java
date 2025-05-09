@@ -7,6 +7,7 @@ import com.joaomadeira.pizzariacrosta.mapper.BebidaMapper;
 import com.joaomadeira.pizzariacrosta.mapper.ClienteMapper;
 import com.joaomadeira.pizzariacrosta.mapper.FuncionarioMapper;
 import com.joaomadeira.pizzariacrosta.model.Pedido;
+import com.joaomadeira.pizzariacrosta.model.enums.TamanhoPizza;
 import com.joaomadeira.pizzariacrosta.repository.custom.PedidoRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,6 +37,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
             piz.sabor as pizza_sabor, 
             piz.preco as pizza_preco, 
             pp.quantidade as pizza_quantidade,
+            pp.tamanho as pizza_tamanho,
             b.id as bebida_id,
             b.nome as bebida_nome,
             b.preco as bebida_preco,
@@ -67,6 +69,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
                             .orElseThrow();
 
                     return PedidoResponseDTO.builder()
+                            .idPedido(pedidoId)
                             .cliente(clienteMapper.toResponseDTO(pedido.getCliente()))
                             .valorTotal(pedido.getValorTotal())
                             .endereco(pedido.getEnderecoEntrega())
@@ -81,6 +84,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
                     dto.getPizzas().add(PizzaResponseDTO.builder()
                             .sabor(rs.getString("pizza_sabor"))
                             .preco(rs.getBigDecimal("pizza_preco"))
+                            .tamanho(TamanhoPizza.valueOf(rs.getString("pizza_tamanho")))
                             .quantidade(rs.getInt("pizza_quantidade"))
                             .build());
                 }

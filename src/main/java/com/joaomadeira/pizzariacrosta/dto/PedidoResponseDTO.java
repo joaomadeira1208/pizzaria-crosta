@@ -27,4 +27,5 @@ public class PedidoResponseDTO {
     private StatusEntrega status;
     private List<PizzaResponseDTO> pizzas;
     private List<BebidaResponseDTO> bebidas;
+    private Integer idPedido;
 }

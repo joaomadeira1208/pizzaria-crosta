@@ -19,7 +19,6 @@ public class PedidoRequestDTO {
     @NotNull
     private Integer clienteId;
 
-    @NotNull
     private Integer funcionarioAceitouId;
 
     @NotBlank
@@ -30,5 +29,6 @@ public class PedidoRequestDTO {
     private StatusEntrega status;
     private List<PedidoPizzasDTO> pizzas;
     private List<PedidoBebidasDTO> bebidas;
+    private BigDecimal frete;
 
 }

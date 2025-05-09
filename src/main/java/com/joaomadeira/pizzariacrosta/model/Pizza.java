@@ -27,4 +27,7 @@ public class Pizza {
     @Column(nullable = false)
     private boolean status;
 
+    @Column(name = "url_imagem", length = 100)
+    private String urlImagem;
+
 }

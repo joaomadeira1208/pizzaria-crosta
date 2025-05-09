@@ -33,12 +33,14 @@ public class AuthService {
                 return LoginResponseDTO.builder()
                         .sucesso(Boolean.TRUE)
                         .tipoUsuario("CLIENTE")
+                        .id(pessoa.getId())
                         .build();
             }
             else {
                 return LoginResponseDTO.builder()
                         .sucesso(Boolean.TRUE)
                         .tipoUsuario("FUNCIONARIO")
+                        .id(pessoa.getId())
                         .build();
             }
         }

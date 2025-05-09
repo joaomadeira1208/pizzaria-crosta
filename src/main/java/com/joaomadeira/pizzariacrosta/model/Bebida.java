@@ -30,4 +30,7 @@ public class Bebida {
     @Column(nullable = false, precision = 6, scale = 2)
     private BigDecimal preco;
 
+    @Column(name = "url_imagem", length = 100)
+    private String urlImagem;
+
 }

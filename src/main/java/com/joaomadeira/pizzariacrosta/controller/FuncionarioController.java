@@ -22,6 +22,12 @@ public class FuncionarioController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FuncionarioResponseDTO> buscarFuncionarioPorId(@PathVariable Integer id) {
+        FuncionarioResponseDTO funcionario = funcionarioService.buscar(id);
+        return ResponseEntity.ok(funcionario);
+    }
+
     @PutMapping("/atualizar/{idFuncionario}")
     public ResponseEntity<FuncionarioResponseDTO> atualizarFuncionario(
             @PathVariable Integer idFuncionario,

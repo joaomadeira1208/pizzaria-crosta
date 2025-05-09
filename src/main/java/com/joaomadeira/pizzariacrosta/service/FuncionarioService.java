@@ -125,4 +125,10 @@ public class FuncionarioService {
             funcionario.setStatus(funcionarioDTO.getStatus());
         }
     }
+
+    public FuncionarioResponseDTO buscar(Integer id) {
+        Funcionario funcionario = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"));
+        return funcionarioMapper.toResponseDTO(funcionario);
+    }
 }

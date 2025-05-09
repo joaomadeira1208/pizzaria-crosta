@@ -13,23 +13,23 @@ import lombok.*;
 @Builder
 public class ClienteResponseDTO {
 
-    @NotBlank
+
     @Size(max = 100)
     private String nome;
 
-    @NotBlank
+
     @Size(min = 11, max = 11)
     private String cpf;
 
-    @NotNull
+
     @Min(0)
     private Integer idade;
 
-    @NotBlank
+
     @Size(max = 20)
     private String telefone;
 
-    @NotBlank
+
     @Size(max = 100)
     private String email;
 

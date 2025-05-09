@@ -16,10 +16,11 @@ import java.util.List;
 @Builder
 public class PizzaResponseDTO {
 
-
+    private Integer id;
     private String sabor;
     private BigDecimal preco;
     private TamanhoPizza tamanho;
+    private String imageUrl;
     private Integer quantidade;
     private List<String> ingredientes;
 

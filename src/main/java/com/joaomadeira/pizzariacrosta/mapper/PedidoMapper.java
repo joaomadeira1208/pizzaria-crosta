@@ -19,10 +19,9 @@ public class PedidoMapper {
     private final ClienteMapper clienteMapper;
     private final FuncionarioMapper funcionarioMapper;
 
-    public Pedido toEntity(PedidoRequestDTO pedidoDTO, Cliente cliente, Funcionario funcionario) {
+    public Pedido toEntity(PedidoRequestDTO pedidoDTO, Cliente cliente) {
         return Pedido.builder()
                 .cliente(cliente)
-                .funcionarioAceitou(funcionario)
                 .dataHora(pedidoDTO.getDataHora())
                 .statusEntrega(pedidoDTO.getStatus())
                 .valorTotal(pedidoDTO.getValorTotal())
@@ -33,7 +32,6 @@ public class PedidoMapper {
     public PedidoResponseDTO toDTO(Pedido pedido, List<PizzaResponseDTO> pizzaResponseDTO, List<BebidaResponseDTO> bebidaResponseDTO) {
         return PedidoResponseDTO.builder()
                 .cliente(clienteMapper.toResponseDTO(pedido.getCliente()))
-                .funcionario(funcionarioMapper.toResponseDTO(pedido.getFuncionarioAceitou()))
                 .dataHora(pedido.getDataHora())
                 .endereco(pedido.getEnderecoEntrega())
                 .status(pedido.getStatusEntrega())

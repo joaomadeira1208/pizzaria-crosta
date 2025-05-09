@@ -7,10 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,7 +18,7 @@ public class PizzaRepositoryImpl implements PizzaRepositoryCustom {
     @Override
     public List<PizzaResponseDTO> findAllByStatus() {
         String sql = """
-                SELECT p.id, p.sabor, p.preco, i.nome AS ingrediente
+                SELECT p.id, p.sabor, p.preco, p.url_imagem, i.nome AS ingrediente
                 FROM pizzas p
                 JOIN pizza_ingredientes pi ON pi.pizza_id = p.id
                 JOIN ingredientes i ON pi.ingrediente_id = i.id
@@ -33,16 +30,20 @@ public class PizzaRepositoryImpl implements PizzaRepositoryCustom {
         Map<Integer, PizzaResponseDTO> pizzaMap = new LinkedHashMap<>();
 
         for(Map<String, Object> row: rows) {
+            var url = row.get("url_imagem");
             Integer pizzaId = (Integer) row.get("id");
             String sabor = (String) row.get("sabor");
             BigDecimal preco = (BigDecimal) row.get("preco");
             String ingrediente = (String) row.get("ingrediente");
+            String urlImagem = Objects.nonNull(url) ? (String) url : null;
 
             PizzaResponseDTO dto = pizzaMap.get(pizzaId);
             if (dto == null) {
                 dto = PizzaResponseDTO.builder()
+                        .id(pizzaId)
                         .sabor(sabor)
                         .preco(preco)
+                        .imageUrl(urlImagem)
                         .ingredientes(new ArrayList<>())
                         .build();
                 pizzaMap.put(pizzaId, dto);

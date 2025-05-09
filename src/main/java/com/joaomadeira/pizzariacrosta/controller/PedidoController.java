@@ -30,6 +30,12 @@ public class PedidoController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping
+    public ResponseEntity<List<PedidoResponseDTO>> buscarTodosPedidos() {
+        List<PedidoResponseDTO> response = pedidoService.buscarTodosPedidos();
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/recuperar-status/{idPedido}")
     public ResponseEntity<BaseResponse> recuperarStatus(@PathVariable Integer idPedido) {
         BaseResponse response = pedidoService.recuperarStatus(idPedido);

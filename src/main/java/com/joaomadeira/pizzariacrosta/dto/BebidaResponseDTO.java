@@ -21,5 +21,7 @@ public class BebidaResponseDTO {
     private BigDecimal preco;
 
     private Integer quantidade;
+    private Integer id;
+    private String imageUrl;
 
 }
